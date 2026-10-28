@@ -3,41 +3,41 @@
   "node": "v24.9.0",
   "count": 10000,
   "physicsHz": 120,
-  "activeStepMedianMs": 1.550150000002759,
-  "activeStepP95Ms": 1.637856000001193,
-  "activeCpuMsPerSimulatedSecond": 186.2734791912932,
+  "activeStepMedianMs": 1.6001299999988987,
+  "activeStepP95Ms": 1.6884739999950398,
+  "activeCpuMsPerSimulatedSecond": 191.95117630607905,
   "flow": [
     {
       "seconds": 30,
-      "upper": 8802
+      "upper": 8669
     },
     {
       "seconds": 60,
-      "upper": 7585
+      "upper": 7326
     },
     {
       "seconds": 90,
-      "upper": 6341
+      "upper": 5993
     },
     {
       "seconds": 120,
-      "upper": 5118
+      "upper": 4634
     },
     {
       "seconds": 150,
-      "upper": 3899
+      "upper": 3296
     },
     {
       "seconds": 180,
-      "upper": 2670
+      "upper": 1941
     },
     {
       "seconds": 210,
-      "upper": 1447
+      "upper": 588
     },
     {
       "seconds": 240,
-      "upper": 223
+      "upper": 0
     },
     {
       "seconds": 270,
@@ -88,10 +88,10 @@
       "upper": 0
     }
   ],
-  "firstSettledSeconds": 263.39166666666665,
+  "firstSettledSeconds": 244.825,
   "surfaceAngles": [
-    33.35350854882467,
-    33.13588752799723
+    33.22362100170246,
+    33.318671225246554
   ],
   "restingDisplacementOver5Seconds": 0,
   "escaped": 0

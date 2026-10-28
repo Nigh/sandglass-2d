@@ -27,6 +27,7 @@ export class Sand {
     this.x=new Float64Array(count); this.y=new Float64Array(count);
     this.vx=new Float64Array(count); this.vy=new Float64Array(count);
     this.cell=new Int32Array(count); this.travel=new Float64Array(count);
+    this.order=new Int32Array(count);
     this.grid=new Int32Array(COLS*ROWS); this.valid=new Uint8Array(COLS*ROWS);
     for(let cy=0;cy<ROWS;cy++) for(let cx=0;cx<COLS;cx++) {
       const x=this.worldX(cx), y=this.worldY(cy);
@@ -91,8 +92,20 @@ export class Sand {
     if(this.sleeping) return;
     let moving=false;
     const magnitude=Math.hypot(gx,gy);
+    let motionX=gx*DT, motionY=gy*DT;
+    for(let i=0;i<this.count;i++) {motionX+=this.vx[i]/this.count;motionY+=this.vy[i]/this.count;}
+    // Visit leading cells first so airborne neighbours vacate their slots in the same step.
+    let next=0;
+    for(let row=0;row<ROWS;row++) {
+      const cy=motionY>=0 ? ROWS-1-row : row;
+      for(let column=0;column<COLS;column++) {
+        const cx=motionX>=0 ? COLS-1-column : column;
+        const id=this.grid[cy*COLS+cx];
+        if(id) this.order[next++]=id-1;
+      }
+    }
     for(let k=0;k<this.count;k++) {
-      const i=this.tick%2?k:this.count-1-k;
+      const i=this.order[k];
       let vx=this.vx[i]+gx*DT, vy=this.vy[i]+gy*DT;
       // Fine sand loses energy in the throat; outside it, velocity survives each sensor update.
       const drag=Math.exp(-(Math.abs(this.y[i])<7 ? 18 : .35)*DT);
