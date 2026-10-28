@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101719">
+  <meta name="description" content="握住一小段安静的时间。倾斜手机、翻转沙漏，看二维沙粒流动、堆积。免费，无需登录。">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <title>流砂 · Sandglass 2D</title>
+</head>
+<body>
+  <main>
+    <header><div><h1>流砂<span> / 2D</span></h1><p>把时间，握在手里。</p></div><button id="settings" class="quiet" aria-label="打开玩法与设置">☰</button></header>
+    <section id="stage" aria-label="沙漏互动区">
+      <div class="stage-label"><span class="dot"></span><span id="mode">手动把玩</span></div>
+      <canvas id="sand" role="img" tabindex="0" aria-label="二维沙漏，拖动可倾斜，双击可翻转。也可使用下方按钮。">浏览器需要支持 Canvas 2D 才能显示沙漏。</canvas>
+      <div class="annotation"><span id="state">砂正在落下</span><span id="progress">上腔 100%</span></div>
+    </section>
+    <footer>
+      <p id="hint">左右拖动，倾斜沙漏 · 双击翻转</p>
+      <div class="controls">
+        <button id="pause" class="quiet" aria-label="暂停" aria-pressed="false"><span id="pause-icon">Ⅱ</span></button>
+        <button id="flip" class="primary"><span>↻</span> 翻转沙漏</button>
+        <button id="immerse" class="quiet" aria-label="进入沉浸模式" aria-pressed="false">⛶</button>
+      </div>
+      <button id="motion" class="sensor">随手机倾斜 <span>↗</span></button>
+    </footer>
+  </main>
+  <dialog id="panel">
+    <div class="panel-heading"><h2>慢慢玩，不赶时间。</h2><button id="close" class="quiet" aria-label="关闭设置">×</button></div>
+    <p>拖动沙漏来倾斜，双击或轻点「翻转沙漏」，让砂重新流过窄口。电脑也可以用 ← → 倾斜、空格暂停、F 翻转。</p>
+    <p>启用「随手机倾斜」后，竖着握住手机，慢慢转动。平放时砂会安静下来；再次点击可回到手动模式。</p>
+    <label class="setting">砂的颜色 <select id="palette"><option value="gold">暖金</option><option value="white">月白</option><option value="rose">赤陶</option></select></label>
+    <label class="setting">传感器方向反了 <input id="polarity" type="checkbox"></label>
+    <p class="small">如果竖着拿手机时砂往上走，切换上面的方向。传感器需要 HTTPS 与浏览器授权，读数只在本机使用。</p>
+    <button id="reset" class="wide">重新装砂</button>
+    <p id="diagnostic" class="small">正在准备物理模拟…</p>
+    <a href="https://github.com/Nigh/sandglass-2d" target="_blank" rel="noopener">关于流砂与源代码 ↗</a>
+  </dialog>
+  <div id="notice" role="status" aria-live="polite"></div>
+  <button id="leave" aria-label="退出沉浸模式">退出沉浸 ↙</button>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

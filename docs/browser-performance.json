@@ -1,0 +1,18 @@
+[
+  {
+    "cpuThrottle": 1,
+    "wallSeconds": 10.001,
+    "fps": "60",
+    "time": "9.90",
+    "upper": "0",
+    "diagnostic": "1,200 粒砂 · 60 FPS · 物理 0.53 ms/步 · 已模拟 9.9 秒"
+  },
+  {
+    "cpuThrottle": 4,
+    "wallSeconds": 10.003,
+    "fps": "60",
+    "time": "9.88",
+    "upper": "0",
+    "diagnostic": "1,200 粒砂 · 60 FPS · 物理 0.40 ms/步 · 已模拟 9.9 秒"
+  }
+]
