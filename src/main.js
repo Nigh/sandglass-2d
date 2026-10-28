@@ -4,13 +4,20 @@ import { screenGravity } from './sensors.js';
 const $ = (id) => document.getElementById(id);
 const canvas = $('sand'), ctx = canvas.getContext('2d', { alpha: false });
 const worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' });
-let positions, physicsMs = 0, simTime = 0, paused = false, angle = 0, shownAngle = 0;
+let positions, velocities, physicsMs = 0, simTime = 0, paused = false, angle = 0, shownAngle = 0;
 let sensor = false, lastReading = 0, sensorStarted = 0, pendingSensor = false, requestVersion = 0;
 let gravity = [0, 650], width = 0, height = 0, frames = 0, fps = 0, lastStats = performance.now();
 let previousTime = 0, noticeTimer, wakeLock;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const colors = { gold: ['#b69761','#c9a86e','#d9bd88','#e8cf9d'], white: ['#a5b4af','#c0ceca','#d8e0d9','#edf0e5'], rose: ['#a5634e','#bf7f61','#d69a77','#e6b792'] };
 let palette = colors.gold;
+const grainBuckets = [[],[],[],[]], jitterX = new Float32Array(COUNT), jitterY = new Float32Array(COUNT);
+for (let i=0;i<COUNT;i++) {
+  let hash = Math.imul(i+1,0x45d9f3b); hash = Math.imul(hash^(hash>>>16),0x45d9f3b); hash ^= hash>>>16;
+  grainBuckets[(hash>>>16)&3].push(i);
+  jitterX[i]=((hash&255)/255-.5)*RADIUS*.55;
+  jitterY[i]=(((hash>>>8)&255)/255-.5)*RADIUS*.55;
+}
 const glass = new Path2D();
 outline.forEach(([x,y], i) => i ? glass.lineTo(x,y) : glass.moveTo(x,y)); glass.closePath();
 function notice(text) {
@@ -18,7 +25,7 @@ function notice(text) {
   clearTimeout(noticeTimer); noticeTimer = setTimeout(() => $('notice').classList.remove('visible'), 5000);
 }
 worker.onerror = () => { $('state').textContent = '模拟启动失败'; notice('模拟遇到了问题，请刷新页面重试。'); };
-worker.onmessage = ({ data }) => { positions = data.positions; physicsMs = data.ms || physicsMs; simTime = data.time; };
+worker.onmessage = ({ data }) => { positions = data.positions; velocities = data.velocities; physicsMs = data.ms || physicsMs; simTime = data.time; };
 function sendGravity() { worker.postMessage({ type:'gravity', value:gravity }); }
 function manual(value = angle) {
   requestVersion++; pendingSensor = false; $('motion').disabled = false;
@@ -81,7 +88,7 @@ $('motion').onclick = async () => {
     sensor = true; angle = 0; sensorStarted = performance.now(); lastReading = 0;
     gravity = [0,0]; sendGravity();
     $('motion').textContent = '回到手动把玩 ↗'; $('mode').textContent = '等待手机读数';
-    $('hint').textContent = '竖着握住手机，慢慢转动';
+    $('hint').textContent = '转动或轻轻摇晃手机，看砂流动';
   } catch { notice('未能开启传感器。请检查权限后重试；仍可拖动把玩。'); }
   finally { if (version === requestVersion) { pendingSensor = false; $('motion').disabled = false; } }
 };
@@ -148,10 +155,15 @@ function render(now) {
   if (positions) {
     for (let c = 0; c < palette.length; c++) {
       ctx.fillStyle = palette[c]; ctx.beginPath();
-      for (let i = c; i < COUNT; i += palette.length) {
-        const x = positions[i*2], y = positions[i*2+1];
-        ctx.moveTo(x+RADIUS,y); ctx.arc(x,y,RADIUS*.94,0,Math.PI*2);
+      const streaks = new Path2D();
+      for (const i of grainBuckets[c]) {
+        const x = positions[i*2]+jitterX[i], y = positions[i*2+1]+jitterY[i];
+        if (velocities && Math.hypot(velocities[i*2],velocities[i*2+1])>50) {
+          streaks.moveTo(x,y); streaks.lineTo(x-velocities[i*2]/30,y-velocities[i*2+1]/30);
+        }
+        ctx.rect(x-RADIUS*.92,y-RADIUS*.92,RADIUS*1.84,RADIUS*1.84);
       }
+      ctx.strokeStyle=palette[c];ctx.lineWidth=RADIUS*.9;ctx.globalAlpha=.45;ctx.stroke(streaks);ctx.globalAlpha=1;
       ctx.fill();
     }
   }

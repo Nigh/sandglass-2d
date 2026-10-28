@@ -14,8 +14,9 @@ setInterval(() => {
   let steps = 0;
   while (debt >= DT) { sand.step(...gravity); debt -= DT; steps++; }
   if (now - sent >= 1000 / 60) {
-    const positions = sand.snapshot();
-    self.postMessage({ positions, ms: steps ? (performance.now() - start) / steps : 0, time: sand.tick * DT }, [positions.buffer]);
+    const positions = sand.snapshot(), velocities = new Float32Array(sand.count*2);
+    for(let i=0;i<sand.count;i++) {velocities[i*2]=sand.vx[i];velocities[i*2+1]=sand.vy[i];}
+    self.postMessage({ positions, velocities, ms: steps ? (performance.now() - start) / steps : 0, time: sand.tick * DT }, [positions.buffer, velocities.buffer]);
     sent = now;
   }
 }, 8);

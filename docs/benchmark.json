@@ -1,30 +1,98 @@
 {
   "cpu": "Intel(R) Core(TM) Ultra 7 265K",
   "node": "v24.9.0",
-  "count": 1200,
-  "physicsHz": 480,
-  "stepMedianMs": 0.29971999999997934,
-  "stepP95Ms": 0.3425090000000637,
-  "cpuMsPerSimulatedSecond": 145.74720350000004,
+  "count": 10000,
+  "physicsHz": 120,
+  "activeStepMedianMs": 1.550150000002759,
+  "activeStepP95Ms": 1.637856000001193,
+  "activeCpuMsPerSimulatedSecond": 186.2734791912932,
   "flow": [
     {
-      "seconds": 10,
-      "upper": 0
-    },
-    {
-      "seconds": 20,
-      "upper": 0
-    },
-    {
       "seconds": 30,
+      "upper": 8802
+    },
+    {
+      "seconds": 60,
+      "upper": 7585
+    },
+    {
+      "seconds": 90,
+      "upper": 6341
+    },
+    {
+      "seconds": 120,
+      "upper": 5118
+    },
+    {
+      "seconds": 150,
+      "upper": 3899
+    },
+    {
+      "seconds": 180,
+      "upper": 2670
+    },
+    {
+      "seconds": 210,
+      "upper": 1447
+    },
+    {
+      "seconds": 240,
+      "upper": 223
+    },
+    {
+      "seconds": 270,
+      "upper": 0
+    },
+    {
+      "seconds": 300,
+      "upper": 0
+    },
+    {
+      "seconds": 330,
+      "upper": 0
+    },
+    {
+      "seconds": 360,
+      "upper": 0
+    },
+    {
+      "seconds": 390,
+      "upper": 0
+    },
+    {
+      "seconds": 420,
+      "upper": 0
+    },
+    {
+      "seconds": 450,
+      "upper": 0
+    },
+    {
+      "seconds": 480,
+      "upper": 0
+    },
+    {
+      "seconds": 510,
+      "upper": 0
+    },
+    {
+      "seconds": 540,
+      "upper": 0
+    },
+    {
+      "seconds": 570,
+      "upper": 0
+    },
+    {
+      "seconds": 600,
       "upper": 0
     }
   ],
+  "firstSettledSeconds": 263.39166666666665,
   "surfaceAngles": [
-    28.178154627295605,
-    31.793134142420616
+    33.35350854882467,
+    33.13588752799723
   ],
-  "maxOverlapFraction": 0.18294392035127582,
-  "rmsSpeed": 0.09636644880663228,
+  "restingDisplacementOver5Seconds": 0,
   "escaped": 0
 }

@@ -7,6 +7,8 @@ test('specific force maps to downward gravity, including screen rotation and fre
   near(screenGravity(9.80665,0,90),[0,650]);
   near(screenGravity(0,9.80665,0,1),[0,-650]);
   near(screenGravity(0,0),[0,0]);
+  near(screenGravity(-19.6133,9.80665),[1300,650]);
+  near(screenGravity(0,-9.80665),[0,-650]);
   assert.equal(screenGravity(NaN,3),null);
   assert.ok(Math.hypot(...screenGravity(1000,1000))<=2600.00001);
 });

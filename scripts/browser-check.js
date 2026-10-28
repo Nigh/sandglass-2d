@@ -7,7 +7,7 @@ try {
   const page = await browser.newPage({ viewport:{width:390,height:844}, isMobile:true, hasTouch:true, deviceScaleFactor:2 });
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base);
-  await page.waitForFunction(()=>Number(document.querySelector('canvas').dataset.time)>5);
+  await page.waitForFunction(()=>Number(document.querySelector('canvas').dataset.time)>12);
   await page.screenshot({path:'docs/mobile.png'});
   await page.getByRole('button',{name:'暂停',exact:true}).click();
   await page.waitForTimeout(1000);
@@ -35,7 +35,7 @@ try {
   await page.locator('#motion').click(); assert.equal(await page.locator('#mode').textContent(),'手动把玩');
   await page.evaluate(()=>{window.DeviceMotionEvent.requestPermission=()=>Promise.resolve('denied');});
   await page.locator('#motion').click(); await page.waitForTimeout(100); assert.match(await page.locator('#notice').textContent(),/权限未获允许/);
-  await page.setViewportSize({width:1440,height:900}); await page.goto(base); await page.waitForFunction(()=>Number(document.querySelector('canvas').dataset.time)>5); await page.screenshot({path:'docs/desktop.png'});
+  await page.setViewportSize({width:1440,height:900}); await page.goto(base); await page.waitForFunction(()=>Number(document.querySelector('canvas').dataset.time)>12); await page.screenshot({path:'docs/desktop.png'});
   assert.deepEqual(errors,[]);
   console.log('Browser checks passed: mobile, 5 viewports, pause, flip, settings, immersion, sensor permission/readings/staleness.');
 } finally { await browser.close(); }
