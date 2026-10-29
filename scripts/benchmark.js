@@ -1,6 +1,7 @@
 import { performance } from 'node:perf_hooks';
 import os from 'node:os';
-import { Sand, DT, COUNT, halfWidth } from '../src/physics.js';
+import { readFileSync } from 'node:fs';
+import { Sand, DT, COUNT, halfWidth, initPhysics } from '../src/physics.js';
 export function surfaceAngles(sand) {
   return [-1,1].map(side=>{
     const points=[];
@@ -15,6 +16,7 @@ export function surfaceAngles(sand) {
   });
 }
 if(process.argv[1]===new URL(import.meta.url).pathname) {
+  await initPhysics(readFileSync(new URL('../src/sand.wasm',import.meta.url)));
   const sand=new Sand(),samples=[],flow=[];
   const seconds=600;
   let firstSettled=null;

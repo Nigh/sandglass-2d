@@ -3,95 +3,95 @@
   "node": "v24.9.0",
   "count": 10000,
   "physicsHz": 120,
-  "activeStepMedianMs": 1.6001299999988987,
-  "activeStepP95Ms": 1.6884739999950398,
-  "activeCpuMsPerSimulatedSecond": 191.95117630607905,
+  "activeStepMedianMs": 11.768095000006724,
+  "activeStepP95Ms": 13.013584000000264,
+  "activeCpuMsPerSimulatedSecond": 1425.4116936553664,
   "flow": [
     {
       "seconds": 30,
-      "upper": 8669
+      "upper": 6219
     },
     {
       "seconds": 60,
-      "upper": 7326
+      "upper": 3256
     },
     {
       "seconds": 90,
-      "upper": 5993
+      "upper": 219
     },
     {
       "seconds": 120,
-      "upper": 4634
+      "upper": 18
     },
     {
       "seconds": 150,
-      "upper": 3296
+      "upper": 18
     },
     {
       "seconds": 180,
-      "upper": 1941
+      "upper": 18
     },
     {
       "seconds": 210,
-      "upper": 588
+      "upper": 18
     },
     {
       "seconds": 240,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 270,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 300,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 330,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 360,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 390,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 420,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 450,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 480,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 510,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 540,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 570,
-      "upper": 0
+      "upper": 18
     },
     {
       "seconds": 600,
-      "upper": 0
+      "upper": 18
     }
   ],
-  "firstSettledSeconds": 244.825,
+  "firstSettledSeconds": 139.05,
   "surfaceAngles": [
-    33.22362100170246,
-    33.318671225246554
+    34.76535354879747,
+    38.923288789807565
   ],
   "restingDisplacementOver5Seconds": 0,
   "escaped": 0
