@@ -9,7 +9,9 @@
     "preview": "vite preview --host 0.0.0.0",
     "test": "node --test tests/*.test.js",
     "test:browser": "node scripts/browser-check.js",
-    "benchmark": "node scripts/benchmark.js"
+    "benchmark": "node scripts/benchmark.js",
+    "benchmark:blocks": "node scripts/block-benchmark.js",
+    "benchmark:activity": "node scripts/active-benchmark.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",

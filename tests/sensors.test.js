@@ -10,7 +10,8 @@ test('specific force maps to downward gravity, including screen rotation and fre
   near(screenGravity(-19.6133,9.80665),[1300,650]);
   near(screenGravity(0,-9.80665),[0,-650]);
   assert.equal(screenGravity(NaN,3),null);
-  assert.ok(Math.hypot(...screenGravity(1000,1000))<=2600.00001);
+  near(screenGravity(0,6*9.80665),[0,3900]);
+  assert.ok(Math.abs(Math.hypot(...screenGravity(1000,1000))-5200)<1e-6);
 });
 
 test('screen-normal acceleration supplies plate pressure instead of disappearing when flat',()=>{
@@ -20,7 +21,9 @@ test('screen-normal acceleration supplies plate pressure instead of disappearing
   assert.equal(screenAcceleration(0,9.80665,0).normal,0);
   const zero=screenAcceleration(0,0,0);assert.ok(zero.gravity.every(v=>v===0));assert.equal(zero.normal,0);
   const shake=screenAcceleration(100,100,100);
-  assert.ok(Math.hypot(...shake.gravity,shake.normal)<=2600+1e-6);
+  assert.ok(Math.abs(Math.hypot(...shake.gravity,shake.normal)-5200)<1e-6);
+  const belowLimit=screenAcceleration(0,6*9.80665,0);
+  assert.ok(Math.abs(belowLimit.gravity[1]-3900)<1e-6);
   assert.equal(screenAcceleration(0,0,NaN),null);
 });
 

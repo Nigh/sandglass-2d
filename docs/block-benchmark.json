@@ -1,0 +1,1363 @@
+{
+  "metadata": {
+    "node": "v24.9.0",
+    "v8": "13.6.233.10-node.27",
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "Intel(R) Core(TM) Ultra 7 265K",
+    "logicalCPUs": 20,
+    "memoryBytes": 65415798784,
+    "seed": 123456789,
+    "steps": 120,
+    "simulatedSeconds": 2,
+    "rounds": 3,
+    "blockSizes": [
+      8,
+      16,
+      32
+    ],
+    "gravity": [
+      0,
+      650,
+      0
+    ],
+    "count": 10000,
+    "scope": "Support replacement only; full particle loops remain, no active-particle list.",
+    "timing": "Median of 3 alternating runs; wholeStepMs averages all 120 calls including sleep; activeStepMs averages calls that compute support; both include invalidation and output scans; assertions/oracle excluded; cold support excludes solver construction; cached support uses unchanged awake grid."
+  },
+  "warmup": {
+    "steps": 6516,
+    "simulatedSeconds": 108.6,
+    "wallMs": 19388.105497,
+    "sleeping": true
+  },
+  "excavationCenter": {
+    "x": 0.45000000000000284,
+    "y": 166.05
+  },
+  "synthetic": {
+    "singleBridgeDeletion": "passed",
+    "cycleBridgeDeletion": "passed",
+    "blockSizes": [
+      8,
+      16,
+      32
+    ]
+  },
+  "results": [
+    {
+      "shape": "intact",
+      "blockSize": 8,
+      "count": 10000,
+      "removed": 0,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 4,
+      "movedGrains": 0,
+      "movedGrainSteps": 0,
+      "displacedGrains": 0,
+      "cavityFilled": 0,
+      "cavityRefillFraction": null,
+      "sleeping": true,
+      "stats": {
+        "updates": 4,
+        "rebuilds": 946,
+        "rebuiltCells": 59166,
+        "graphNodes": 756
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 946,
+        "rebuiltCells": 59166,
+        "graphNodes": 22869
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 1.8157570000003034,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 946,
+          "rebuiltCells": 59166,
+          "graphNodes": 189
+        },
+        "deletionSupportMs": 0.4002069999987725,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 946,
+          "rebuiltCells": 59166,
+          "graphNodes": 378
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.08521913333333941,
+          "activeStepMs": 2.549739750000299,
+          "supportMsPerStep": 0.020882183333318,
+          "supportMsPerCall": 0.62646549999954,
+          "supportCalls": [
+            4,
+            4,
+            4
+          ],
+          "coldSupportMs": 0.09071200000107638,
+          "cachedSupportMs": 0.08538929166664579
+        },
+        "candidate": {
+          "wholeStepMs": 0.06495644166664837,
+          "activeStepMs": 1.9345425000001342,
+          "supportMsPerStep": 0.004150491666708452,
+          "supportMsPerCall": 0.12451475000125356,
+          "supportCalls": [
+            4,
+            4,
+            4
+          ],
+          "coldSupportMs": 0.3506630000010773,
+          "cachedSupportMs": 0.021812358333318117
+        },
+        "wholeStepSpeedup": 1.3119427595907682
+      }
+    },
+    {
+      "shape": "intact",
+      "blockSize": 16,
+      "count": 10000,
+      "removed": 0,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 4,
+      "movedGrains": 0,
+      "movedGrainSteps": 0,
+      "displacedGrains": 0,
+      "cavityFilled": 0,
+      "cavityRefillFraction": null,
+      "sleeping": true,
+      "stats": {
+        "updates": 4,
+        "rebuilds": 242,
+        "rebuiltCells": 59166,
+        "graphNodes": 236
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 242,
+        "rebuiltCells": 59166,
+        "graphNodes": 7139
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.26872699999876204,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 242,
+          "rebuiltCells": 59166,
+          "graphNodes": 59
+        },
+        "deletionSupportMs": 0.08659600000100909,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 242,
+          "rebuiltCells": 59166,
+          "graphNodes": 118
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.04970794999999271,
+          "activeStepMs": 1.4879985000006855,
+          "supportMsPerStep": 0.009651849999985036,
+          "supportMsPerCall": 0.2895554999995511,
+          "supportCalls": [
+            4,
+            4,
+            4
+          ],
+          "coldSupportMs": 0.08599899999899208,
+          "cachedSupportMs": 0.08290425000001657
+        },
+        "candidate": {
+          "wholeStepMs": 0.06169450833334243,
+          "activeStepMs": 1.8422212500008754,
+          "supportMsPerStep": 0.0023311000000224642,
+          "supportMsPerCall": 0.06993300000067393,
+          "supportCalls": [
+            4,
+            4,
+            4
+          ],
+          "coldSupportMs": 0.22907200000190642,
+          "cachedSupportMs": 0.014863650000006601
+        },
+        "wholeStepSpeedup": 0.8057110971922332
+      }
+    },
+    {
+      "shape": "intact",
+      "blockSize": 32,
+      "count": 10000,
+      "removed": 0,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 4,
+      "movedGrains": 0,
+      "movedGrainSteps": 0,
+      "displacedGrains": 0,
+      "cavityFilled": 0,
+      "cavityRefillFraction": null,
+      "sleeping": true,
+      "stats": {
+        "updates": 4,
+        "rebuilds": 66,
+        "rebuiltCells": 59166,
+        "graphNodes": 72
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 66,
+        "rebuiltCells": 59166,
+        "graphNodes": 2178
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.3178779999980179,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 66,
+          "rebuiltCells": 59166,
+          "graphNodes": 18
+        },
+        "deletionSupportMs": 0.03621699999712291,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 66,
+          "rebuiltCells": 59166,
+          "graphNodes": 36
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.04296626666667483,
+          "activeStepMs": 1.2862894999998389,
+          "supportMsPerStep": 0.006031124999935855,
+          "supportMsPerCall": 0.18093374999807565,
+          "supportCalls": [
+            4,
+            4,
+            4
+          ],
+          "coldSupportMs": 0.08503199999904609,
+          "cachedSupportMs": 0.08037412499998027
+        },
+        "candidate": {
+          "wholeStepMs": 0.037719474999994416,
+          "activeStepMs": 1.1291615000000093,
+          "supportMsPerStep": 0.002086433333321717,
+          "supportMsPerCall": 0.06259299999965151,
+          "supportCalls": [
+            4,
+            4,
+            4
+          ],
+          "coldSupportMs": 0.31342700000095647,
+          "cachedSupportMs": 0.010407566666678273
+        },
+        "wholeStepSpeedup": 1.1391003365418313
+      }
+    },
+    {
+      "shape": "circle",
+      "blockSize": 8,
+      "count": 9855,
+      "removed": 145,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 28,
+      "movedGrains": 1675,
+      "movedGrainSteps": 2147,
+      "displacedGrains": 1675,
+      "cavityFilled": 145,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 28,
+        "rebuilds": 1111,
+        "rebuiltCells": 69726,
+        "graphNodes": 5311
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 946,
+        "rebuiltCells": 59166,
+        "graphNodes": 22869
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.3431749999981548,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 946,
+          "rebuiltCells": 59166,
+          "graphNodes": 189
+        },
+        "deletionSupportMs": 0.08593299999847659,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 952,
+          "rebuiltCells": 59550,
+          "graphNodes": 378
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.7116081666666711,
+          "activeStepMs": 3.048982714286077,
+          "supportMsPerStep": 0.04861126666673954,
+          "supportMsPerCall": 0.2083340000003123,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.08541200000036042,
+          "cachedSupportMs": 0.08041085000001355
+        },
+        "candidate": {
+          "wholeStepMs": 0.6527029833333169,
+          "activeStepMs": 2.796965142857386,
+          "supportMsPerStep": 0.00925631666659683,
+          "supportMsPerCall": 0.039669928571129276,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.24900200000047334,
+          "cachedSupportMs": 0.02090254999999767
+        },
+        "wholeStepSpeedup": 1.090248068168049
+      }
+    },
+    {
+      "shape": "circle",
+      "blockSize": 16,
+      "count": 9855,
+      "removed": 145,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 28,
+      "movedGrains": 1675,
+      "movedGrainSteps": 2147,
+      "displacedGrains": 1675,
+      "cavityFilled": 145,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 28,
+        "rebuilds": 326,
+        "rebuiltCells": 80670,
+        "graphNodes": 1674
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 242,
+        "rebuiltCells": 59166,
+        "graphNodes": 7260
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.22167399999671034,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 242,
+          "rebuiltCells": 59166,
+          "graphNodes": 59
+        },
+        "deletionSupportMs": 0.050641000001633074,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 244,
+          "rebuiltCells": 59678,
+          "graphNodes": 119
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.6949752583333368,
+          "activeStepMs": 2.9781702499997533,
+          "supportMsPerStep": 0.04468490000002324,
+          "supportMsPerCall": 0.19150671428581387,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.08515600000100676,
+          "cachedSupportMs": 0.07841107499998543
+        },
+        "candidate": {
+          "wholeStepMs": 0.6531765666666616,
+          "activeStepMs": 2.799004750000027,
+          "supportMsPerStep": 0.0072943583333047474,
+          "supportMsPerCall": 0.0312615357141632,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.23403899999902933,
+          "cachedSupportMs": 0.014452233333334638
+        },
+        "wholeStepSpeedup": 1.0639929443274203
+      }
+    },
+    {
+      "shape": "circle",
+      "blockSize": 32,
+      "count": 9855,
+      "removed": 145,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 28,
+      "movedGrains": 1675,
+      "movedGrainSteps": 2147,
+      "displacedGrains": 1675,
+      "cavityFilled": 145,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 28,
+        "rebuilds": 112,
+        "rebuiltCells": 106270,
+        "graphNodes": 536
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 66,
+        "rebuiltCells": 59166,
+        "graphNodes": 2178
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.23192000000199187,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 66,
+          "rebuiltCells": 59166,
+          "graphNodes": 18
+        },
+        "deletionSupportMs": 0.03357099999993807,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 67,
+          "rebuiltCells": 60190,
+          "graphNodes": 36
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.6888692583333371,
+          "activeStepMs": 2.9519578214280306,
+          "supportMsPerStep": 0.04380537500010177,
+          "supportMsPerCall": 0.18773732142900762,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.08755100000053062,
+          "cachedSupportMs": 0.08152034166669182
+        },
+        "candidate": {
+          "wholeStepMs": 0.6488107499999993,
+          "activeStepMs": 2.7802849999998216,
+          "supportMsPerStep": 0.007814766666736734,
+          "supportMsPerCall": 0.03349185714315744,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.2259169999997539,
+          "cachedSupportMs": 0.010127091666678705
+        },
+        "wholeStepSpeedup": 1.061741437442795
+      }
+    },
+    {
+      "shape": "horizontal-slit",
+      "blockSize": 8,
+      "count": 9556,
+      "removed": 444,
+      "detachedBeforeStep": 3262,
+      "firstStepDetached": 3262,
+      "supportChecks": 8,
+      "movedGrains": 3262,
+      "movedGrainSteps": 9786,
+      "displacedGrains": 3262,
+      "cavityFilled": 411,
+      "cavityRefillFraction": 0.9256756756756757,
+      "sleeping": true,
+      "stats": {
+        "updates": 8,
+        "rebuilds": 1182,
+        "rebuiltCells": 74270,
+        "graphNodes": 1626
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 946,
+        "rebuiltCells": 59166,
+        "graphNodes": 25168
+      },
+      "staticDeletion": {
+        "detached": 3262,
+        "fullBedColdSupportMs": 0.29974399999991874,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 946,
+          "rebuiltCells": 59166,
+          "graphNodes": 189
+        },
+        "deletionSupportMs": 0.05030799999804003,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 965,
+          "rebuiltCells": 60382,
+          "graphNodes": 397
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.11774112500000532,
+          "activeStepMs": 1.765074375000495,
+          "supportMsPerStep": 0.009080533333356773,
+          "supportMsPerCall": 0.1362080000003516,
+          "supportCalls": [
+            8,
+            8,
+            8
+          ],
+          "coldSupportMs": 0.05379199999879347,
+          "cachedSupportMs": 0.051574849999997244
+        },
+        "candidate": {
+          "wholeStepMs": 0.11308464166665241,
+          "activeStepMs": 1.69524387499996,
+          "supportMsPerStep": 0.0043951499999820955,
+          "supportMsPerCall": 0.06592724999973143,
+          "supportCalls": [
+            8,
+            8,
+            8
+          ],
+          "coldSupportMs": 0.31874099999913597,
+          "cachedSupportMs": 0.01690469166666541
+        },
+        "wholeStepSpeedup": 1.0411769738553813
+      }
+    },
+    {
+      "shape": "horizontal-slit",
+      "blockSize": 16,
+      "count": 9556,
+      "removed": 444,
+      "detachedBeforeStep": 3262,
+      "firstStepDetached": 3262,
+      "supportChecks": 8,
+      "movedGrains": 3262,
+      "movedGrainSteps": 9786,
+      "displacedGrains": 3262,
+      "cavityFilled": 411,
+      "cavityRefillFraction": 0.9256756756756757,
+      "sleeping": true,
+      "stats": {
+        "updates": 8,
+        "rebuilds": 315,
+        "rebuiltCells": 77854,
+        "graphNodes": 535
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 242,
+        "rebuiltCells": 59166,
+        "graphNodes": 8349
+      },
+      "staticDeletion": {
+        "detached": 3262,
+        "fullBedColdSupportMs": 0.2495660000022326,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 242,
+          "rebuiltCells": 59166,
+          "graphNodes": 59
+        },
+        "deletionSupportMs": 0.06119899999976042,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 252,
+          "rebuiltCells": 61726,
+          "graphNodes": 128
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.11741519999998976,
+          "activeStepMs": 1.7602913749997242,
+          "supportMsPerStep": 0.009028400000048956,
+          "supportMsPerCall": 0.13542600000073435,
+          "supportCalls": [
+            8,
+            8,
+            8
+          ],
+          "coldSupportMs": 0.060030999997252366,
+          "cachedSupportMs": 0.053089066666658864
+        },
+        "candidate": {
+          "wholeStepMs": 0.11548589999999119,
+          "activeStepMs": 1.731184000000212,
+          "supportMsPerStep": 0.004071583333370654,
+          "supportMsPerCall": 0.06107375000055981,
+          "supportCalls": [
+            8,
+            8,
+            8
+          ],
+          "coldSupportMs": 0.21809199999916018,
+          "cachedSupportMs": 0.011605524999989332
+        },
+        "wholeStepSpeedup": 1.0167059355297807
+      }
+    },
+    {
+      "shape": "horizontal-slit",
+      "blockSize": 32,
+      "count": 9556,
+      "removed": 444,
+      "detachedBeforeStep": 3262,
+      "firstStepDetached": 3262,
+      "supportChecks": 8,
+      "movedGrains": 3262,
+      "movedGrainSteps": 9786,
+      "displacedGrains": 3262,
+      "cavityFilled": 411,
+      "cavityRefillFraction": 0.9256756756756757,
+      "sleeping": true,
+      "stats": {
+        "updates": 8,
+        "rebuilds": 98,
+        "rebuiltCells": 91934,
+        "graphNodes": 176
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 66,
+        "rebuiltCells": 59166,
+        "graphNodes": 2783
+      },
+      "staticDeletion": {
+        "detached": 3262,
+        "fullBedColdSupportMs": 0.23786399999880814,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 66,
+          "rebuiltCells": 59166,
+          "graphNodes": 18
+        },
+        "deletionSupportMs": 0.07148700000107056,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 71,
+          "rebuiltCells": 64286,
+          "graphNodes": 41
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.12128415833334051,
+          "activeStepMs": 1.81822262499918,
+          "supportMsPerStep": 0.00970639999998942,
+          "supportMsPerCall": 0.1455959999998413,
+          "supportCalls": [
+            8,
+            8,
+            8
+          ],
+          "coldSupportMs": 0.05664299999989453,
+          "cachedSupportMs": 0.053156616666668315
+        },
+        "candidate": {
+          "wholeStepMs": 0.1168472083333351,
+          "activeStepMs": 1.7516850000001796,
+          "supportMsPerStep": 0.0045700749999923575,
+          "supportMsPerCall": 0.06855112499988536,
+          "supportCalls": [
+            8,
+            8,
+            8
+          ],
+          "coldSupportMs": 0.22101800000018557,
+          "cachedSupportMs": 0.008897500000027017
+        },
+        "wholeStepSpeedup": 1.0379722379618
+      }
+    },
+    {
+      "shape": "vertical-slot",
+      "blockSize": 8,
+      "count": 9845,
+      "removed": 155,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 34,
+      "movedGrains": 2213,
+      "movedGrainSteps": 2791,
+      "displacedGrains": 2213,
+      "cavityFilled": 155,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 34,
+        "rebuilds": 1164,
+        "rebuiltCells": 73118,
+        "graphNodes": 6456
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 946,
+        "rebuiltCells": 59166,
+        "graphNodes": 22869
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.2576840000001539,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 946,
+          "rebuiltCells": 59166,
+          "graphNodes": 189
+        },
+        "deletionSupportMs": 0.04418699999951059,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 956,
+          "rebuiltCells": 59806,
+          "graphNodes": 378
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.8604788749999898,
+          "activeStepMs": 3.036722558823171,
+          "supportMsPerStep": 0.05578222500010573,
+          "supportMsPerCall": 0.19687844117684375,
+          "supportCalls": [
+            34,
+            34,
+            34
+          ],
+          "coldSupportMs": 0.08403399999951944,
+          "cachedSupportMs": 0.08122585833331565
+        },
+        "candidate": {
+          "wholeStepMs": 0.8226333416666723,
+          "activeStepMs": 2.9031437352944467,
+          "supportMsPerStep": 0.010915116666698548,
+          "supportMsPerCall": 0.03852394117658311,
+          "supportCalls": [
+            34,
+            34,
+            34
+          ],
+          "coldSupportMs": 0.25841200000286335,
+          "cachedSupportMs": 0.02171411666668064
+        },
+        "wholeStepSpeedup": 1.0460053482109557
+      }
+    },
+    {
+      "shape": "vertical-slot",
+      "blockSize": 16,
+      "count": 9845,
+      "removed": 155,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 34,
+      "movedGrains": 2213,
+      "movedGrainSteps": 2791,
+      "displacedGrains": 2213,
+      "cavityFilled": 155,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 34,
+        "rebuilds": 351,
+        "rebuiltCells": 87070,
+        "graphNodes": 2058
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 242,
+        "rebuiltCells": 59166,
+        "graphNodes": 7260
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.24052499999743304,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 242,
+          "rebuiltCells": 59166,
+          "graphNodes": 59
+        },
+        "deletionSupportMs": 0.03874100000030012,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 245,
+          "rebuiltCells": 59934,
+          "graphNodes": 119
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.8630452833333341,
+          "activeStepMs": 3.045802970588364,
+          "supportMsPerStep": 0.05516334999992978,
+          "supportMsPerCall": 0.1946941764703404,
+          "supportCalls": [
+            34,
+            34,
+            34
+          ],
+          "coldSupportMs": 0.08507900000040536,
+          "cachedSupportMs": 0.08126207500002541
+        },
+        "candidate": {
+          "wholeStepMs": 0.8058187999999973,
+          "activeStepMs": 2.8438293529410763,
+          "supportMsPerStep": 0.008436208333387185,
+          "supportMsPerCall": 0.029774852941366534,
+          "supportCalls": [
+            34,
+            34,
+            34
+          ],
+          "coldSupportMs": 0.23186599999826285,
+          "cachedSupportMs": 0.013928849999986899
+        },
+        "wholeStepSpeedup": 1.0710165651798358
+      }
+    },
+    {
+      "shape": "vertical-slot",
+      "blockSize": 32,
+      "count": 9845,
+      "removed": 155,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 34,
+      "movedGrains": 2213,
+      "movedGrainSteps": 2791,
+      "displacedGrains": 2213,
+      "cavityFilled": 155,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 34,
+        "rebuilds": 127,
+        "rebuiltCells": 121630,
+        "graphNodes": 676
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 66,
+        "rebuiltCells": 59166,
+        "graphNodes": 2178
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.2183790000017325,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 66,
+          "rebuiltCells": 59166,
+          "graphNodes": 18
+        },
+        "deletionSupportMs": 0.044456999999965774,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 68,
+          "rebuiltCells": 61214,
+          "graphNodes": 36
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.865031533333331,
+          "activeStepMs": 3.052700470588046,
+          "supportMsPerStep": 0.056494966666681044,
+          "supportMsPerCall": 0.19939400000005073,
+          "supportCalls": [
+            34,
+            34,
+            34
+          ],
+          "coldSupportMs": 0.08603899999798159,
+          "cachedSupportMs": 0.07956177500000194
+        },
+        "candidate": {
+          "wholeStepMs": 0.8022908499999782,
+          "activeStepMs": 2.8313658529413637,
+          "supportMsPerStep": 0.00916654166673349,
+          "supportMsPerCall": 0.032352500000235845,
+          "supportCalls": [
+            34,
+            34,
+            34
+          ],
+          "coldSupportMs": 0.2243750000016007,
+          "cachedSupportMs": 0.009892291666680346
+        },
+        "wholeStepSpeedup": 1.0782019180866322
+      }
+    },
+    {
+      "shape": "diagonal-cut",
+      "blockSize": 8,
+      "count": 9790,
+      "removed": 210,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 28,
+      "movedGrains": 2539,
+      "movedGrainSteps": 3328,
+      "displacedGrains": 2539,
+      "cavityFilled": 210,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 28,
+        "rebuilds": 1180,
+        "rebuiltCells": 74142,
+        "graphNodes": 5346
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 946,
+        "rebuiltCells": 59166,
+        "graphNodes": 23595
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.36043099999733386,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 946,
+          "rebuiltCells": 59166,
+          "graphNodes": 189
+        },
+        "deletionSupportMs": 0.07921200000055251,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 959,
+          "rebuiltCells": 59998,
+          "graphNodes": 384
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.7535682166666751,
+          "activeStepMs": 3.229041321429057,
+          "supportMsPerStep": 0.06655060833342456,
+          "supportMsPerCall": 0.2852168928575338,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.08739100000093458,
+          "cachedSupportMs": 0.08227898333334452
+        },
+        "candidate": {
+          "wholeStepMs": 0.6515670500000245,
+          "activeStepMs": 2.7918643928574705,
+          "supportMsPerStep": 0.009766258333305208,
+          "supportMsPerCall": 0.04185539285702232,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.25990599999931874,
+          "cachedSupportMs": 0.021754450000025828
+        },
+        "wholeStepSpeedup": 1.156547459953119
+      }
+    },
+    {
+      "shape": "diagonal-cut",
+      "blockSize": 16,
+      "count": 9790,
+      "removed": 210,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 28,
+      "movedGrains": 2539,
+      "movedGrainSteps": 3328,
+      "displacedGrains": 2539,
+      "cavityFilled": 210,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 28,
+        "rebuilds": 354,
+        "rebuiltCells": 87838,
+        "graphNodes": 1723
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 242,
+        "rebuiltCells": 59166,
+        "graphNodes": 7623
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.22489599999971688,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 242,
+          "rebuiltCells": 59166,
+          "graphNodes": 59
+        },
+        "deletionSupportMs": 0.05158999999912339,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 250,
+          "rebuiltCells": 61214,
+          "graphNodes": 122
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.6885863916666798,
+          "activeStepMs": 2.9506057142860818,
+          "supportMsPerStep": 0.045067950000005415,
+          "supportMsPerCall": 0.19314835714288034,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.08347499999945285,
+          "cachedSupportMs": 0.08160766666669587
+        },
+        "candidate": {
+          "wholeStepMs": 0.6402083416666452,
+          "activeStepMs": 2.7432980357143606,
+          "supportMsPerStep": 0.007748916666757092,
+          "supportMsPerCall": 0.0332096428575304,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.23056699999870034,
+          "cachedSupportMs": 0.013571400000000722
+        },
+        "wholeStepSpeedup": 1.0755661038000421
+      }
+    },
+    {
+      "shape": "diagonal-cut",
+      "blockSize": 32,
+      "count": 9790,
+      "removed": 210,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 28,
+      "movedGrains": 2539,
+      "movedGrainSteps": 3328,
+      "displacedGrains": 2539,
+      "cavityFilled": 210,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 28,
+        "rebuilds": 129,
+        "rebuiltCells": 123678,
+        "graphNodes": 586
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 66,
+        "rebuiltCells": 59166,
+        "graphNodes": 2420
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.23840000000200234,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 66,
+          "rebuiltCells": 59166,
+          "graphNodes": 18
+        },
+        "deletionSupportMs": 0.06459999999788124,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 70,
+          "rebuiltCells": 63262,
+          "graphNodes": 38
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.6811795083333284,
+          "activeStepMs": 2.918896285714124,
+          "supportMsPerStep": 0.04368024166675847,
+          "supportMsPerCall": 0.18720103571467916,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.08934499999668333,
+          "cachedSupportMs": 0.08251003333334665
+        },
+        "candidate": {
+          "wholeStepMs": 0.649188950000007,
+          "activeStepMs": 2.7817779999999663,
+          "supportMsPerStep": 0.008562441666557181,
+          "supportMsPerCall": 0.03669617857095935,
+          "supportCalls": [
+            28,
+            28,
+            28
+          ],
+          "coldSupportMs": 0.2296040000001085,
+          "cachedSupportMs": 0.009984058333308591
+        },
+        "wholeStepSpeedup": 1.0492777308260115
+      }
+    },
+    {
+      "shape": "tiny-hole",
+      "blockSize": 8,
+      "count": 9995,
+      "removed": 5,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 15,
+      "movedGrains": 151,
+      "movedGrainSteps": 152,
+      "displacedGrains": 151,
+      "cavityFilled": 5,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 15,
+        "rebuilds": 984,
+        "rebuiltCells": 61598,
+        "graphNodes": 2835
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 946,
+        "rebuiltCells": 59166,
+        "graphNodes": 22869
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.26788999999916996,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 946,
+          "rebuiltCells": 59166,
+          "graphNodes": 189
+        },
+        "deletionSupportMs": 0.055220999998709885,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 947,
+          "rebuiltCells": 59230,
+          "graphNodes": 378
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.4134378583333273,
+          "activeStepMs": 3.3065205333337264,
+          "supportMsPerStep": 0.045018900000043986,
+          "supportMsPerCall": 0.3601512000003519,
+          "supportCalls": [
+            15,
+            15,
+            15
+          ],
+          "coldSupportMs": 0.08620799999698647,
+          "cachedSupportMs": 0.08156538333332719
+        },
+        "candidate": {
+          "wholeStepMs": 0.39484890833330916,
+          "activeStepMs": 3.1577348666665785,
+          "supportMsPerStep": 0.006671249999999418,
+          "supportMsPerCall": 0.053369999999995345,
+          "supportCalls": [
+            15,
+            15,
+            15
+          ],
+          "coldSupportMs": 0.25621099999989383,
+          "cachedSupportMs": 0.021964758333342615
+        },
+        "wholeStepSpeedup": 1.0470786409882293
+      }
+    },
+    {
+      "shape": "tiny-hole",
+      "blockSize": 16,
+      "count": 9995,
+      "removed": 5,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 15,
+      "movedGrains": 151,
+      "movedGrainSteps": 152,
+      "displacedGrains": 151,
+      "cavityFilled": 5,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 15,
+        "rebuilds": 261,
+        "rebuiltCells": 64030,
+        "graphNodes": 885
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 242,
+        "rebuiltCells": 59166,
+        "graphNodes": 7139
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.2585319999998319,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 242,
+          "rebuiltCells": 59166,
+          "graphNodes": 59
+        },
+        "deletionSupportMs": 0.045139000001654495,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 243,
+          "rebuiltCells": 59422,
+          "graphNodes": 118
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.34807360000001303,
+          "activeStepMs": 2.783719800000593,
+          "supportMsPerStep": 0.02388679166667013,
+          "supportMsPerCall": 0.19109433333336104,
+          "supportCalls": [
+            15,
+            15,
+            15
+          ],
+          "coldSupportMs": 0.08059400000274763,
+          "cachedSupportMs": 0.07888570000001588
+        },
+        "candidate": {
+          "wholeStepMs": 0.32421176666666723,
+          "activeStepMs": 2.5928747333336406,
+          "supportMsPerStep": 0.004386691666635064,
+          "supportMsPerCall": 0.03509353333308051,
+          "supportCalls": [
+            15,
+            15,
+            15
+          ],
+          "coldSupportMs": 0.23268499999903725,
+          "cachedSupportMs": 0.01479454166665164
+        },
+        "wholeStepSpeedup": 1.0735995290321432
+      }
+    },
+    {
+      "shape": "tiny-hole",
+      "blockSize": 32,
+      "count": 9995,
+      "removed": 5,
+      "detachedBeforeStep": 0,
+      "firstStepDetached": 0,
+      "supportChecks": 15,
+      "movedGrains": 151,
+      "movedGrainSteps": 152,
+      "displacedGrains": 151,
+      "cavityFilled": 5,
+      "cavityRefillFraction": 1,
+      "sleeping": true,
+      "stats": {
+        "updates": 15,
+        "rebuilds": 80,
+        "rebuiltCells": 73502,
+        "graphNodes": 270
+      },
+      "cachedQueryStats": {
+        "updates": 121,
+        "rebuilds": 66,
+        "rebuiltCells": 59166,
+        "graphNodes": 2178
+      },
+      "staticDeletion": {
+        "detached": 0,
+        "fullBedColdSupportMs": 0.22609899999952177,
+        "fullBedColdStats": {
+          "updates": 1,
+          "rebuilds": 66,
+          "rebuiltCells": 59166,
+          "graphNodes": 18
+        },
+        "deletionSupportMs": 0.04398899999796413,
+        "deletionStats": {
+          "updates": 2,
+          "rebuilds": 67,
+          "rebuiltCells": 60190,
+          "graphNodes": 36
+        }
+      },
+      "timing": {
+        "baseline": {
+          "wholeStepMs": 0.34509528333331524,
+          "activeStepMs": 2.7602033333341143,
+          "supportMsPerStep": 0.023872541666757268,
+          "supportMsPerCall": 0.19098033333405814,
+          "supportCalls": [
+            15,
+            15,
+            15
+          ],
+          "coldSupportMs": 0.08273499999995693,
+          "cachedSupportMs": 0.08173028333333908
+        },
+        "candidate": {
+          "wholeStepMs": 0.3337702750000062,
+          "activeStepMs": 2.669501933334444,
+          "supportMsPerStep": 0.004390141666772251,
+          "supportMsPerCall": 0.03512113333417801,
+          "supportCalls": [
+            15,
+            15,
+            15
+          ],
+          "coldSupportMs": 0.22812400000111666,
+          "cachedSupportMs": 0.010369750000002871
+        },
+        "wholeStepSpeedup": 1.0339305479893584
+      }
+    }
+  ]
+}
