@@ -1,11 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { Sand, DT, COUNT, RADIUS, halfWidth, initPhysics } from '../src/physics.js';
-await initPhysics(readFileSync(new URL('../src/sand.wasm',import.meta.url)));
+import { Sand, DT, COUNT, RADIUS, halfWidth } from '../src/physics.js';
 function contained(sand){
   assert.equal(sand.x.length,sand.count);
+  const occupied=new Set(sand.cell);assert.equal(occupied.size,sand.count,'fixed-volume grains must never share a cell');
+  for(let i=0;i<sand.count;i++)assert.equal(sand.grid[sand.cell[i]],i+1,'cell ownership must remain consistent');
   for(let i=0;i<sand.count;i++){
+    assert.equal(sand.index(sand.x[i],sand.y[i]),sand.cell[i]);
+    assert.ok(Math.abs(sand.x[i]-sand.worldX(Math.floor((sand.x[i]+112)/(2*RADIUS))))<1e-7);
+    assert.ok(Math.abs(sand.y[i]-sand.worldY(Math.floor((sand.y[i]+222)/(2*RADIUS))))<1e-7);
     assert.ok(Number.isFinite(sand.x[i])&&Number.isFinite(sand.y[i]));
     assert.ok(Math.abs(sand.y[i])<220.01&&Math.abs(sand.x[i])<halfWidth(sand.y[i])+.01,`grain ${i} escaped`);
   }
@@ -22,32 +25,50 @@ test('both sides of the neck converge, rather than leaving a stationary central 
   const result=sides.map((ids,side)=>{
     assert.ok(ids.length>300);
     const fed=ids.filter(i=>sand.y[i]>0||(sand.x[i]-initial[i])*(side?-1:1)>RADIUS).length;
-    assert.ok(fed/ids.length>.8,`side ${side} did not feed: ${fed}/${ids.length}`);
+    assert.ok(fed/ids.length>.75,`side ${side} did not feed: ${fed}/${ids.length}`);
     return fed/ids.length;
   });
-  console.log('Near-neck side feeding fractions:',result);
+  console.log('Near-neck side feeding fractions at 8 seconds:',result);
+  advance(sand,8);
+  for(const [side,ids] of sides.entries())assert.ok(ids.filter(i=>sand.y[i]>0||(sand.x[i]-initial[i])*(side?-1:1)>RADIUS).length/ids.length>.8,'both sides must keep feeding through the narrower neck');
   const drained=COUNT-Array.from(sand.y).filter(y=>y<0).length;
   assert.ok(drained>50&&drained<COUNT,'the neck must produce a continuing stream');
 });
-test('uneven airborne sand conserves momentum and falls as a whole through twelve reversals',()=>{
-  const sand=new Sand(160),reference=new Sand(1);
+function place(sand,points){
+  sand.grid.fill(0);sand.resting.fill(0);sand.carryX.fill(0);sand.carryY.fill(0);
   for(let i=0;i<sand.count;i++){
-    sand.x[i]=(i%8)*RADIUS*2.06+(Math.floor(i/8)%2)*RADIUS-5;
-    sand.y[i]=100+Math.floor(i/8)*RADIUS*1.79;
-    sand.vx[i]=(i%5-2)*2;sand.vy[i]=(i%7-3)*1.5;
+    const k=sand.index(...points[i]);assert.ok(k>=0&&sand.valid[k]&&!sand.grid[k]);
+    sand.grid[k]=i+1;sand.cell[i]=k;sand.x[i]=sand.worldX(Math.floor((points[i][0]+112)/(2*RADIUS)));sand.y[i]=sand.worldY(Math.floor((points[i][1]+222)/(2*RADIUS)));
   }
-  reference.x[0]=mean(sand.x);reference.y[0]=mean(sand.y);
-  reference.vx[0]=mean(sand.vx);reference.vy[0]=mean(sand.vy);
+}
+test('airborne sand moves together through twelve reversals without losing bulk velocity',()=>{
+  const sand=new Sand(160);
+  place(sand,Array.from({length:160},(_,i)=>[-5+(i%8)*RADIUS*2,100+Math.floor(i/8)*RADIUS*2]));
+  const initial=sand.y.slice();let referenceY=mean(sand.y),referenceV=0;
   for(let flip=0;flip<12;flip++){
     const gy=flip%2?650:-650;
     for(let n=0;n<Math.round(.15/DT);n++){
-      sand.step(0,gy);reference.step(0,gy);
-      assert.ok(Math.abs(mean(sand.vx)-reference.vx[0])<1e-7,'internal contacts must not erase bulk momentum');
-      assert.ok(Math.abs(mean(sand.vy)-reference.vy[0])<1e-7,'falling neighbours must not become fixed supports');
-      assert.ok(Math.abs(mean(sand.y)-reference.y[0])<1e-6,'bulk free-fall must not peel off layer by layer');
+      referenceV=(referenceV+gy*DT)/(1+.35*DT);referenceY+=referenceV*DT;sand.step(0,gy);
+      assert.ok(Math.abs(mean(sand.vy)-referenceV)<1e-7,'moving neighbours must not erase free-fall velocity');
+      assert.ok(Math.abs(mean(sand.y)-referenceY)<RADIUS*4,'whole-bed displacement must follow free fall to within two cells');
+      const displacement=Array.from(sand.y,(y,i)=>y-initial[i]);
+      assert.ok(Math.max(...displacement)-Math.min(...displacement)<RADIUS*2.01,'falling bed must not peel into layers');
     }
     contained(sand);
   }
+});
+test('a supported bed retains upward shaking inertia and lifts off together',()=>{
+  const sand=new Sand(160);
+  place(sand,Array.from({length:160},(_,i)=>[-5+(i%8)*RADIUS*2,218-Math.floor(i/8)*RADIUS*2]));
+  const initial=sand.y.slice();sand.vy.fill(-100);let velocity=-100;
+  for(let n=0;n<8;n++){
+    velocity=(velocity+650*DT)/(1+.35*DT);sand.step();
+    assert.ok(Math.abs(mean(sand.vy)-velocity)<1e-7,'floor support must not erase a lifting bed’s inertia');
+    const displacement=Array.from(sand.y,(y,i)=>y-initial[i]);
+    assert.ok(Math.max(...displacement)-Math.min(...displacement)<RADIUS*2.01);
+    contained(sand);
+  }
+  assert.ok(mean(sand.y)<mean(initial)-RADIUS*4);
 });
 test('settled sand stays still and resumes after repeated full inversions and shaking',()=>{
   const sand=new Sand(2400),initial=sand.snapshot();
@@ -66,15 +87,15 @@ test('settled sand stays still and resumes after repeated full inversions and sh
   assert.throws(()=>sand.step(NaN,0));assert.throws(()=>sand.step(0,10000));
 });
 test('an acceleration pulse leaves real airborne inertia',()=>{
-  const sand=new Sand(1);sand.x[0]=0;sand.y[0]=80;
+  const sand=new Sand(1);place(sand,[[0,80]]);
   advance(sand,.1,1300,650);
   const x=sand.x[0],vx=sand.vx[0];assert.ok(vx>100);
-  sand.step(0,650);assert.ok(sand.x[0]>x&&sand.vx[0]>vx*.98);
+  advance(sand,.05,0,650);assert.ok(sand.x[0]>x&&sand.vx[0]>vx*.97);
 });
 
 test('a flat shallow vessel stops motion through plate friction, while true zero-g keeps inertia',()=>{
   const flat=new Sand(1),free=new Sand(1);
-  flat.x[0]=free.x[0]=-40;flat.y[0]=free.y[0]=160;flat.vx[0]=free.vx[0]=100;
+  place(flat,[[-40,160]]);place(free,[[-40,160]]);flat.vx[0]=free.vx[0]=100;
   for(let n=0;n<1/DT;n++){flat.step(0,0,650);free.step(0,0,0);}
   assert.ok(Math.abs(flat.vx[0])<1e-8,'front/back plates must dissipate flat-phone motion');
   assert.ok(free.vx[0]>60,'zero specific force must not invent plate pressure');
@@ -83,4 +104,20 @@ test('a flat shallow vessel stops motion through plate friction, while true zero
   for(let n=0;n<30;n++)flat.step(500,0,400);
   assert.ok(flat.vx[0]>10,'tilting past friction or shaking must release the sand');
   assert.throws(()=>flat.step(0,0,-1));assert.throws(()=>flat.step(0,0,NaN));
+});
+
+test('ten thousand fixed-volume grains keep their slope while flowing and do not creep after rest',async()=>{
+  const {surfaceAngles}=await import('../scripts/benchmark.js');
+  const sand=new Sand();
+  for(let seconds=10;seconds<=150;seconds+=10){
+    advance(sand,10);
+    const angles=surfaceAngles(sand);
+    assert.ok(angles.every(angle=>angle>30&&angle<38),`flowing slope at ${seconds}s: ${angles}`);
+  }
+  assert.equal(Array.from(sand.y).filter(y=>y<0).length,0);
+  assert.ok(sand.sleeping);
+  const angles=surfaceAngles(sand);
+  assert.ok(angles.every(angle=>angle>30&&angle<37),`repose angles: ${angles}`);
+  const still=sand.snapshot();advance(sand,30);assert.deepEqual(sand.snapshot(),still);
+  console.log('Resting slope angles:',angles);
 });

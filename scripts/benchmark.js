@@ -1,7 +1,6 @@
 import { performance } from 'node:perf_hooks';
 import os from 'node:os';
-import { readFileSync } from 'node:fs';
-import { Sand, DT, COUNT, halfWidth, initPhysics } from '../src/physics.js';
+import { Sand, DT, COUNT, halfWidth } from '../src/physics.js';
 export function surfaceAngles(sand) {
   return [-1,1].map(side=>{
     const points=[];
@@ -16,7 +15,6 @@ export function surfaceAngles(sand) {
   });
 }
 if(process.argv[1]===new URL(import.meta.url).pathname) {
-  await initPhysics(readFileSync(new URL('../src/sand.wasm',import.meta.url)));
   const sand=new Sand(),samples=[],flow=[];
   const seconds=600;
   let firstSettled=null;
@@ -24,7 +22,7 @@ if(process.argv[1]===new URL(import.meta.url).pathname) {
     const start=performance.now();sand.step();const ms=performance.now()-start;
     if(!sand.sleeping) samples.push(ms);
     if(sand.sleeping && firstSettled===null) firstSettled=(n+1)*DT;
-    if((n+1)%Math.round(30/DT)===0) flow.push({seconds:(n+1)*DT,upper:Array.from(sand.y).filter(y=>y<0).length});
+    if((n+1)%Math.round(30/DT)===0) flow.push({seconds:(n+1)*DT,upper:Array.from(sand.y).filter(y=>y<0).length,surfaceAngles:surfaceAngles(sand)});
   }
   samples.sort((a,b)=>a-b);
   let escaped=0;
@@ -32,5 +30,5 @@ if(process.argv[1]===new URL(import.meta.url).pathname) {
   const still=sand.snapshot();for(let n=0;n<5/DT;n++) sand.step();
   const after=sand.snapshot();let maxRestDisplacement=0;
   for(let i=0;i<after.length;i++) maxRestDisplacement=Math.max(maxRestDisplacement,Math.abs(after[i]-still[i]));
-  console.log(JSON.stringify({cpu:os.cpus()[0].model,node:process.version,count:COUNT,physicsHz:1/DT,activeStepMedianMs:samples[Math.floor(samples.length*.5)],activeStepP95Ms:samples[Math.floor(samples.length*.95)],activeCpuMsPerSimulatedSecond:samples.reduce((a,b)=>a+b,0)/(samples.length*DT),flow,firstSettledSeconds:firstSettled,surfaceAngles:surfaceAngles(sand),restingDisplacementOver5Seconds:maxRestDisplacement,escaped},null,2));
+  console.log(JSON.stringify({cpu:os.cpus()[0].model,node:process.version,count:COUNT,physicsHz:1/DT,activeStepMedianMs:samples[Math.floor(samples.length*.5)],activeStepP95Ms:samples[Math.floor(samples.length*.95)],activeCpuMsPerSimulatedSecond:samples.reduce((a,b)=>a+b,0)/(samples.length*DT),flow,firstSettledSeconds:firstSettled,surfaceAngles:surfaceAngles(sand),restingDisplacementOver5Seconds:maxRestDisplacement,occupiedCells:new Set(sand.cell).size,escaped},null,2));
 }

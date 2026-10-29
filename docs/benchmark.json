@@ -2,97 +2,178 @@
   "cpu": "Intel(R) Core(TM) Ultra 7 265K",
   "node": "v24.9.0",
   "count": 10000,
-  "physicsHz": 120,
-  "activeStepMedianMs": 11.768095000006724,
-  "activeStepP95Ms": 13.013584000000264,
-  "activeCpuMsPerSimulatedSecond": 1425.4116936553664,
+  "physicsHz": 60,
+  "activeStepMedianMs": 2.948643000000004,
+  "activeStepP95Ms": 3.0616289999998116,
+  "activeCpuMsPerSimulatedSecond": 176.99376041442721,
   "flow": [
     {
       "seconds": 30,
-      "upper": 6219
+      "upper": 7158,
+      "surfaceAngles": [
+        34.14440683859778,
+        33.89392356231735
+      ]
     },
     {
       "seconds": 60,
-      "upper": 3256
+      "upper": 4318,
+      "surfaceAngles": [
+        33.60584447522119,
+        34.10871399677133
+      ]
     },
     {
       "seconds": 90,
-      "upper": 219
+      "upper": 1471,
+      "surfaceAngles": [
+        35.026963037132745,
+        34.39341359052781
+      ]
     },
     {
       "seconds": 120,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 150,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 180,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 210,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 240,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 270,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 300,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 330,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 360,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 390,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 420,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 450,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 480,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 510,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 540,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 570,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     },
     {
       "seconds": 600,
-      "upper": 18
+      "upper": 0,
+      "surfaceAngles": [
+        33.35218563270337,
+        33.09703986621278
+      ]
     }
   ],
-  "firstSettledSeconds": 139.05,
+  "firstSettledSeconds": 108.6,
   "surfaceAngles": [
-    34.76535354879747,
-    38.923288789807565
+    33.35218563270337,
+    33.09703986621278
   ],
   "restingDisplacementOver5Seconds": 0,
+  "occupiedCells": 10000,
   "escaped": 0
 }
