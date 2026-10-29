@@ -14,7 +14,7 @@ self.onmessage = ({ data }) => {
     data.value.every(Number.isFinite) &&
     Number.isFinite(data.normal) &&
     data.normal >= 0 &&
-    Math.hypot(...data.value, data.normal) <= 2600 + 1e-6
+    Math.hypot(...data.value, data.normal) <= 5200 + 1e-6
   ) {
     gravity = data.value;
     wallNormal = data.normal;
