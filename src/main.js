@@ -1,6 +1,6 @@
 import './style.css';
 import { outline, RADIUS, COUNT } from './geometry.js';
-import { screenAcceleration } from './sensors.js';
+import { screenAcceleration, motionPolarity } from './sensors.js';
 const $ = (id) => document.getElementById(id);
 const canvas = $('sand'), ctx = canvas.getContext('2d', { alpha: false });
 const worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' });
@@ -11,6 +11,7 @@ let wallNormal = 0;
 let gravity = [0, 650], width = 0, height = 0, frames = 0, fps = 0, lastStats = performance.now();
 let previousTime = 0, noticeTimer, wakeLock;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sensorPolarity = motionPolarity(navigator);
 const colors = { gold: ['#b69761','#c9a86e','#d9bd88','#e8cf9d'], white: ['#a5b4af','#c0ceca','#d8e0d9','#edf0e5'], rose: ['#a5634e','#bf7f61','#d69a77','#e6b792'] };
 let palette = colors.gold;
 const grainBuckets = [[],[],[],[]], jitterX = new Float32Array(COUNT), jitterY = new Float32Array(COUNT);
@@ -103,7 +104,7 @@ window.addEventListener('devicemotion', (event) => {
   if (!sensor || document.hidden) return;
   const a = event.accelerationIncludingGravity;
   if (!a || a.x === null || a.y === null || a.z === null) return;
-  const value = screenAcceleration(a.x, a.y, a.z, screen.orientation?.angle ?? window.orientation ?? 0, $('polarity').checked ? 1 : -1);
+  const value = screenAcceleration(a.x, a.y, a.z, screen.orientation?.angle ?? window.orientation ?? 0, sensorPolarity * ($('polarity').checked ? -1 : 1));
   if (!value) return;
   gravity = value.gravity; wallNormal = value.normal; lastReading = performance.now(); sendGravity(); $('mode').textContent = wallNormal>200&&Math.hypot(...gravity)<wallNormal*.45?'平放 · 壁面摩擦':'随手机倾斜';
 });
