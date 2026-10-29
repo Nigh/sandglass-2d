@@ -1,18 +1,18 @@
 [
   {
     "cpuThrottle": 1,
-    "wallSeconds": 10.003,
+    "wallSeconds": 10.002,
     "fps": "60",
-    "time": "9.90",
-    "upper": "9566",
-    "diagnostic": "10,000 粒砂 · 60 FPS · 物理 2.20 ms/步 · 已模拟 9.9 秒"
+    "time": "6.92",
+    "upper": "8515",
+    "diagnostic": "10,000 粒砂 · 60 FPS · 物理 11.18 ms/步 · 已模拟 6.9 秒"
   },
   {
     "cpuThrottle": 4,
-    "wallSeconds": 10.004,
-    "fps": "47",
-    "time": "9.94",
-    "upper": "9563",
-    "diagnostic": "10,000 粒砂 · 47 FPS · 物理 2.10 ms/步 · 已模拟 9.9 秒"
+    "wallSeconds": 10.003,
+    "fps": "37",
+    "time": "7.11",
+    "upper": "8489",
+    "diagnostic": "10,000 粒砂 · 37 FPS · 物理 10.90 ms/步 · 已模拟 7.1 秒"
   }
 ]

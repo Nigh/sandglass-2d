@@ -1,11 +1,13 @@
 import './style.css';
-import { outline, RADIUS, COUNT } from './physics.js';
-import { screenGravity } from './sensors.js';
+import { outline, RADIUS, COUNT } from './geometry.js';
+import { screenAcceleration } from './sensors.js';
 const $ = (id) => document.getElementById(id);
 const canvas = $('sand'), ctx = canvas.getContext('2d', { alpha: false });
 const worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' });
+let simulationError = false;
 let positions, velocities, physicsMs = 0, simTime = 0, paused = false, angle = 0, shownAngle = 0;
 let sensor = false, lastReading = 0, sensorStarted = 0, pendingSensor = false, requestVersion = 0;
+let wallNormal = 0;
 let gravity = [0, 650], width = 0, height = 0, frames = 0, fps = 0, lastStats = performance.now();
 let previousTime = 0, noticeTimer, wakeLock;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -24,12 +26,12 @@ function notice(text) {
   $('notice').textContent = text; $('notice').classList.add('visible');
   clearTimeout(noticeTimer); noticeTimer = setTimeout(() => $('notice').classList.remove('visible'), 5000);
 }
-worker.onerror = () => { $('state').textContent = '模拟启动失败'; notice('模拟遇到了问题，请刷新页面重试。'); };
-worker.onmessage = ({ data }) => { positions = data.positions; velocities = data.velocities; physicsMs = data.ms || physicsMs; simTime = data.time; };
-function sendGravity() { worker.postMessage({ type:'gravity', value:gravity }); }
+worker.onerror = () => { simulationError = true; $('state').textContent = '模拟启动失败'; notice('模拟遇到了问题，请刷新页面重试。'); };
+worker.onmessage = ({ data }) => { if(data.error){worker.onerror();return;} positions = data.positions; velocities = data.velocities; physicsMs = data.ms || physicsMs; simTime = data.time; };
+function sendGravity() { worker.postMessage({ type:'gravity', value:gravity, normal:wallNormal }); }
 function manual(value = angle) {
   requestVersion++; pendingSensor = false; $('motion').disabled = false;
-  sensor = false; angle = value;
+  sensor = false; wallNormal = 0; angle = value;
   gravity = [Math.sin(angle) * 650, Math.cos(angle) * 650]; sendGravity();
   $('mode').textContent = '手动把玩'; $('motion').innerHTML = '随手机倾斜 <span>↗</span>';
   $('hint').textContent = '左右拖动，倾斜沙漏 · 双击翻转';
@@ -69,12 +71,13 @@ document.addEventListener('fullscreenchange', () => { if (!document.fullscreenEl
 document.addEventListener('visibilitychange', () => {
   worker.postMessage({ type:'pause', value:document.hidden || paused });
   previousTime = 0;
-  if (sensor) { lastReading = 0; sensorStarted = performance.now(); gravity = [0,0]; sendGravity(); }
+  if (sensor) { lastReading = 0; sensorStarted = performance.now(); gravity = [0,0]; wallNormal = 0; sendGravity(); }
   if (!document.hidden) keepAwake();
 });
-$('motion').onclick = async () => {
-  if (sensor || pendingSensor) { manual(0); return; }
-  if (!isSecureContext || !window.DeviceMotionEvent) { notice('当前浏览器无法使用运动传感器。可以直接拖动沙漏来玩。'); return; }
+async function startSensors(automatic=false) {
+  if(pendingSensor)return;
+  if (!isSecureContext || !window.DeviceMotionEvent) { if(!automatic)notice('当前浏览器无法使用运动传感器。可以直接拖动沙漏来玩。'); return; }
+  if(automatic){gravity=[0,0];wallNormal=0;sendGravity();$('mode').textContent='正在开启手机传感器';}
   const version = ++requestVersion;
   pendingSensor = true; $('motion').disabled = true;
   try {
@@ -84,25 +87,29 @@ $('motion').onclick = async () => {
       new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('timeout')), 8000); }),
     ]).finally(() => clearTimeout(timer));
     if (version !== requestVersion) return;
-    if (permission !== 'granted') { notice('运动权限未获允许。可在浏览器设置中授权，或继续拖动把玩。'); return; }
+    if (permission !== 'granted') { manual(0); notice('运动权限未获允许。可在浏览器设置中授权，或继续拖动把玩。'); return; }
     sensor = true; angle = 0; sensorStarted = performance.now(); lastReading = 0;
-    gravity = [0,0]; sendGravity();
+    gravity = [0,0]; wallNormal = 0; sendGravity();
     $('motion').textContent = '回到手动把玩 ↗'; $('mode').textContent = '等待手机读数';
     $('hint').textContent = '转动或轻轻摇晃手机，看砂流动';
-  } catch { notice('未能开启传感器。请检查权限后重试；仍可拖动把玩。'); }
+  } catch {
+    if(automatic){$('mode').textContent='等待传感器授权';$('motion').textContent='点击授权手机传感器 ↗';$('hint').textContent='点击下方授权，随后转动或摇晃手机';}
+    else notice('未能开启传感器。请检查权限后重试；仍可拖动把玩。');
+  }
   finally { if (version === requestVersion) { pendingSensor = false; $('motion').disabled = false; } }
-};
+}
+$('motion').onclick=()=>{if(sensor||pendingSensor)manual(0);else void startSensors();};
 window.addEventListener('devicemotion', (event) => {
   if (!sensor || document.hidden) return;
   const a = event.accelerationIncludingGravity;
-  if (!a || a.x === null || a.y === null) return;
-  const value = screenGravity(a.x, a.y, screen.orientation?.angle ?? window.orientation ?? 0, $('polarity').checked ? 1 : -1);
+  if (!a || a.x === null || a.y === null || a.z === null) return;
+  const value = screenAcceleration(a.x, a.y, a.z, screen.orientation?.angle ?? window.orientation ?? 0, $('polarity').checked ? 1 : -1);
   if (!value) return;
-  gravity = value; lastReading = performance.now(); sendGravity(); $('mode').textContent = '随手机倾斜';
+  gravity = value.gravity; wallNormal = value.normal; lastReading = performance.now(); sendGravity(); $('mode').textContent = wallNormal>200&&Math.hypot(...gravity)<wallNormal*.45?'平放 · 壁面摩擦':'随手机倾斜';
 });
 setInterval(() => {
   if (sensor && performance.now() - (lastReading || sensorStarted) > 1800) {
-    gravity = [0,0]; sendGravity(); $('mode').textContent = '手机读数已中断';
+    gravity = [0,0]; wallNormal = 0; sendGravity(); $('mode').textContent = '手机读数已中断';
     if (lastReading !== -Infinity) notice('没有收到手机读数，已停止施加重力。可点击下方回到手动模式。');
     lastReading = -Infinity;
   }
@@ -178,9 +185,11 @@ function render(now) {
     fps = Math.round(frames*1000/(now-lastStats)); frames = 0; lastStats = now;
     let upper = 0; if (positions) for (let i=1;i<positions.length;i+=2) upper += positions[i]<0;
     $('progress').textContent = `上腔 ${Math.round(upper/COUNT*100)}%`;
-    $('state').textContent = paused ? '时间暂停了' : !positions ? '正在装砂' : sensor && !Number.isFinite(lastReading) ? '等待手机读数' : '让砂慢慢落下';
+    $('state').textContent = simulationError ? '模拟启动失败' : paused ? '时间暂停了' : !positions ? '正在装砂' : sensor && !Number.isFinite(lastReading) ? '等待手机读数' : '让砂慢慢落下';
     $('diagnostic').textContent = `${COUNT.toLocaleString()} 粒砂 · ${fps} FPS · 物理 ${physicsMs.toFixed(2)} ms/步 · 已模拟 ${simTime.toFixed(1)} 秒`;
     canvas.dataset.fps = String(fps); canvas.dataset.time = simTime.toFixed(2); canvas.dataset.upper = String(upper);
   }
 }
 requestAnimationFrame(render);
+
+if(matchMedia('(pointer: coarse)').matches||navigator.maxTouchPoints>0)void startSensors(true);
