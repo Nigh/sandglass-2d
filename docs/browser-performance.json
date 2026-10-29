@@ -3,16 +3,32 @@
     "cpuThrottle": 1,
     "wallSeconds": 10.002,
     "fps": "60",
-    "time": "6.92",
-    "upper": "8515",
-    "diagnostic": "10,000 粒砂 · 60 FPS · 物理 11.18 ms/步 · 已模拟 6.9 秒"
+    "time": "9.93",
+    "upper": "9074",
+    "diagnostic": "10,000 粒砂 · 60 FPS · 物理 3.40 ms/步 · 已模拟 9.9 秒",
+    "physicsUpdates": {
+      "sampleSeconds": 10.027300000011921,
+      "count": 602,
+      "hz": 59.936373699728286,
+      "changedSnapshots": 598,
+      "changedHz": 59.63719046994595,
+      "gapP95Ms": 26.100000023841858
+    }
   },
   {
     "cpuThrottle": 4,
-    "wallSeconds": 10.003,
-    "fps": "37",
-    "time": "7.11",
-    "upper": "8489",
-    "diagnostic": "10,000 粒砂 · 37 FPS · 物理 10.90 ms/步 · 已模拟 7.1 秒"
+    "wallSeconds": 10.004,
+    "fps": "46",
+    "time": "9.95",
+    "upper": "9071",
+    "diagnostic": "10,000 粒砂 · 46 FPS · 物理 4.20 ms/步 · 已模拟 9.9 秒",
+    "physicsUpdates": {
+      "sampleSeconds": 10.26419999998808,
+      "count": 616,
+      "hz": 59.916993043852834,
+      "changedSnapshots": 611,
+      "changedHz": 59.52728902405541,
+      "gapP95Ms": 24.100000023841858
+    }
   }
 ]

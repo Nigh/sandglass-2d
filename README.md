@@ -25,15 +25,13 @@
 
 ## 这个版本有什么不同
 
-它是 [三维流砂](https://github.com/Nigh/sandglass) 的独立重写。现在使用 **一万粒细砂**，砂粒在连续空间中运动，细颈让砂集中落下；已有速度不会在下次手机读数到来时被抹掉。
+它是 [三维流砂](https://github.com/Nigh/sandglass) 的独立重写，使用 **一万粒细砂**。细颈让砂集中落下，手机的倾斜和摇晃会改变流动方向。
 
-每一步先预测所有砂粒的运动，再统一解接触与摩擦。接触会把压力传到周围砂粒，让颈口两侧也向内补砂；没有「一格只能站一粒砂」的占位规则。穿透修正和真实速度分开，避免修正位置时制造弹跳。整堆落定后停止计算，倾斜或摇晃会重新唤醒。
+每粒砂都有固定的占用空间，堆积时不会互相挤进身体、缩成一小团。悬空的砂团会一起下落，颈口两侧会向内补砂；坡度过陡时滑落，落定后保持约 33° 的沙堆。已有速度会保留到碰到容器或受到摩擦，不会被下一次传感器读数直接清零。
 
-物理内核是本地 WebAssembly，运行在 Worker 中；Canvas 2D 分批绘制细砂和由实际速度产生的短拖影。所有资源随站点提供，没有远程字体、账号或统计服务。设置里可以查看帧率和物理步耗时。
+模拟运行在 Worker 中，Canvas 2D 绘制细砂。全部使用 JavaScript，不需要额外下载物理内核；所有资源随站点提供，没有远程字体、账号或统计服务。设置里可以查看画面帧率和物理步耗时。
 
-少量砂停在窄口时，可以轻轻摇晃或改变倾角，让它继续流动。
-
-这是供把玩的颗粒模拟，**不是精确计时器**。流完所需时间随姿态、砂堆和设备负载变化。简化的颗粒接触与摩擦不能代表所有真实砂材；固定步长、角度测量方法和性能结果见 [验证记录](docs/VALIDATION.md)。
+这是供把玩的沙漏，**不是精确计时器**。为了让手机能流畅运行，采用固定体积的格点颗粒和近似休止角规则；微小运动和坡角有离散误差，流完所需时间也随姿态和设备负载变化。翻转、体积、坡角和性能的检查方法见 [验证记录](docs/VALIDATION.md)。
 
 ## 在本地运行
 
@@ -55,16 +53,6 @@ npm run test:browser # 先启动开发服务器；默认使用 /usr/bin/google-c
 
 浏览器检查可通过 `CHROME_PATH` 指定 Chromium，通过 `BASE_URL` 检查其他地址。
 
-修改 `native/sand.cpp` 后，需要安装 LLVM 的 `clang++`、`lld`，再运行：
-
-```sh
-npm run build:physics
-npm test
-npm run build
-```
-
-仓库自带编译好的 `src/sand.wasm`，直接运行页面不需要安装编译器。GitHub Actions 会从源码重新编译并测试。
-
 ## 自动发布
 
-PR 会运行物理内核编译、测试和构建；合并或推送到 `main` 后，GitHub Actions 才会自动部署到 GitHub Pages。工作流位于 [deploy-pages.yml](.github/workflows/deploy-pages.yml)。Fork 后，在仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**，再推送或手动运行工作流；站点子路径会自动配置。
+PR 会运行测试和构建；合并或推送到 `main` 后，GitHub Actions 才会自动部署到 GitHub Pages。工作流位于 [deploy-pages.yml](.github/workflows/deploy-pages.yml)。Fork 后，在仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**，再推送或手动运行工作流；站点子路径会自动配置。
